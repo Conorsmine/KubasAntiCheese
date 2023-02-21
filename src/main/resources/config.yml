@@ -1,3 +1,11 @@
 # Enchant removal:
-Enchants: []
-EnchRemoveMessage: "%s &cRemoved illegal enchantments!&r"
+enchants: []
+enchRemoveMessage: "%s &cRemoved illegal enchantments!&r"
+
+# Blacklisted materials:
+# All materials within this list will not be affected
+# by the plugin.
+# Use the following syntax to define the "damage" of an item:
+#     stone#5 => Andesite
+blacklist:
+  -

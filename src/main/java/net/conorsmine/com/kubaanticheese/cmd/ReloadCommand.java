@@ -21,7 +21,8 @@ public class ReloadCommand implements CommandExecutor {
         else {
             pl.reloadConfig();
             pl.setupFiles();
-            pl.getRemover().initEnchantIDs();
+            pl.getRemover().reloadRemover(commandSender);
+            pl.getRemover().printBlacklisted(commandSender);
             commandSender.sendMessage(String.format("%s §aSuccessfully reloaded the config.", pl.getPrefix()));
             return true;
         }

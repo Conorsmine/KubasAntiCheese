@@ -2,10 +2,30 @@ name: KubaAntiCheese
 version: '${project.version}'
 main: net.conorsmine.com.kubaanticheese.KubaAntiCheese
 author: Conorsmine
+api-version: 1.12
 
 permissions:
   AntiCheat.reload: {}
+  AntiCheat.add:
+    description: Allows the use of the "/kb set" command.
+  AntiCheat.remove:
+    description: Allows the use of the "/kb remove" command.
+  AntiCheat.list:
+    description: Allows the use of the "/kb list" command.
 
 commands:
+  kubaAntiCheese:
+    description: Main command of the plugin.
+    aliases: "kb"
+
   reloadAntiCheat:
-    description: "Reloads the config and updates it."
+    description: Reloads the config and updates it. <SubCommand>
+
+  add:
+    description: Adds an item to the blacklisted items. <SubCommand>
+
+  remove:
+    description: Removes the specified item from the blacklist. <SubCommand>
+
+  list:
+    description: Lists all currently blacklisted items. <SubCommand>

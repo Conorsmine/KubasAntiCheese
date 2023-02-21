@@ -1,6 +1,6 @@
 package net.conorsmine.com.kubaanticheese;
 
-import net.conorsmine.com.kubaanticheese.cmd.ReloadCommand;
+import net.conorsmine.com.kubaanticheese.cmd.PluginCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -8,21 +8,22 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class KubaAntiCheese extends JavaPlugin {
 
     public final String prefix = "§6[§5AntiCheese§6]§r";
-    private final EnchantRemover remover = new EnchantRemover(this);
+    private EnchantRemover remover;
     private FileConfiguration conf;
 
     @Override
     public void onEnable() {
         setupFiles();
-        remover.initEnchantIDs();
+        remover = new EnchantRemover(this);
+        remover.printBlacklisted(getServer().getConsoleSender());
         remover.startChecker();
-        this.getCommand("reloadAntiCheat").setExecutor(new ReloadCommand(this));
+        this.getCommand("kubaAntiCheese").setExecutor(new PluginCommand(this));
         getLogger().info(String.format("%s §aWas enabled successfully.", prefix));
     }
 
     @Override
     public void onDisable() {
-        remover.getTask().cancel();
+        remover.stopChecker();
     }
 
     public void setupFiles() {

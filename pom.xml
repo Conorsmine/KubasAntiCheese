@@ -6,7 +6,7 @@
 
     <groupId>net.Conorsmine.com</groupId>
     <artifactId>KubaAntiCheese</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
     <name>KubaAntiCheese</name>
@@ -39,6 +39,7 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <outputDirectory>C:\Users\Conor\Desktop\Desktop\Minecraft Stuff\1.12.2 mc server\plugins</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
