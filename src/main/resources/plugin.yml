@@ -1,3 +1,11 @@
 name: KubaAntiCheese
 version: '${project.version}'
 main: net.conorsmine.com.kubaanticheese.KubaAntiCheese
+author: Conorsmine
+
+permissions:
+  AntiCheat.reload: {}
+
+commands:
+  reloadAntiCheat:
+    description: "Reloads the config and updates it."
