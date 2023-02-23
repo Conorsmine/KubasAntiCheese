@@ -40,6 +40,7 @@
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <outputDirectory>C:\Users\Conor\Desktop\Desktop\Minecraft Stuff\1.12.2 mc server\plugins</outputDirectory>
+                            <finalName>KubaAntiCheese</finalName>
                         </configuration>
                     </execution>
                 </executions>

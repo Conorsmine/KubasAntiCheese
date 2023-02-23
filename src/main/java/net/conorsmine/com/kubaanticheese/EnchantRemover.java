@@ -17,6 +17,7 @@ public final class EnchantRemover {
 
     private final KubaAntiCheese pl;
     private final Set<Enchantment> enchantSet = new HashSet<>();
+    // Short can be `null` if the durability wasn't set/ irrelevant
     private final Map<Material, Short> blacklistedMaterials = new HashMap<>();
     private String removalMsg;
     private BukkitTask task = null;
@@ -72,6 +73,7 @@ public final class EnchantRemover {
 
     private boolean isItemBlacklisted(final ItemStack item) {
         if (!blacklistedMaterials.containsKey(item.getType())) return false;
+        if (blacklistedMaterials.get(item.getType()) == null) return true;
         return (item.getDurability() == blacklistedMaterials.get(item.getType()));
     }
 
@@ -99,11 +101,11 @@ public final class EnchantRemover {
             if (StringUtils.isBlank(mat)) continue;
 
             String matName = getMatName(mat);
-            short matDurability = getDurability(mat);
+            Optional<Short> matDurability = getDurability(mat);
 
             final Material material = Material.getMaterial(matName);
             if (material == null) { sendNonMaterialErr(sender, matName); continue; }
-            blacklistedMaterials.put(material, matDurability);
+            blacklistedMaterials.put(material, matDurability.orElse(null));
         }
     }
 
@@ -111,11 +113,11 @@ public final class EnchantRemover {
         return mat.replaceAll("#\\d*", "").toUpperCase(Locale.ROOT);
     }
 
-    private short getDurability(String mat) {
+    private Optional<Short> getDurability(String mat) {
         final String data = mat.replaceFirst("\\w+#", "");
 
-        if (StringUtils.isBlank(data) || !data.matches("\\d+")) return 0;
-        return Short.parseShort(data);
+        if (StringUtils.isBlank(data) || !data.matches("\\d+")) return Optional.empty();
+        return Optional.of(Short.parseShort(data));
     }
 
     private void setRemovalMsg(String msg) {
@@ -137,7 +139,7 @@ public final class EnchantRemover {
             sender.sendMessage(String.format("%s §7The following items will not have their enchants removed:", pl.getPrefix()));
 
         for (Map.Entry<Material, Short> entry : blacklistedMaterials.entrySet()) {
-            if (entry.getValue() == 0)
+            if (entry.getValue() == null)
                 sender.sendMessage(String.format("%s    §7>>§b%s", pl.getPrefix(), entry.getKey().name()));
             else
                 sender.sendMessage(String.format("%s    §7>>§b%s: §3%s", pl.getPrefix(), entry.getKey().name(), entry.getValue()));
